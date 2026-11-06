@@ -218,3 +218,42 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+# ==========================================
+# MRI research project: data and model files
+# ==========================================
+
+# Dataset files and processed MRI volumes
+data/raw/
+data/processed/
+data/external/
+*.nii
+*.nii.gz
+*.mha
+*.mhd
+*.nrrd
+
+# Model weights and checkpoints
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.onnx
+
+# Experiment outputs that may become large
+runs/
+lightning_logs/
+tensorboard_logs/
+wandb/
+
+# Local secrets and credentials
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+
+# Temporary files
+*.tmp
+*.bak
+.DS_Store

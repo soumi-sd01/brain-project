@@ -1,0 +1,46 @@
+project:
+  name: conformal-mri-missing-modalities
+  random_seed: 42
+
+data:
+  root_dir: /content/drive/MyDrive/brain_mri_dataset
+  modalities:
+    - T1
+    - T1ce
+    - T2
+    - FLAIR
+  # Confirm the BraTS release and label mapping before setting this.
+  num_classes: null
+
+preprocessing:
+  target_spacing: [1.0, 1.0, 1.0]
+  patch_size: [64, 64, 64]
+  normalization: z_score
+
+model:
+  architecture: unet3d
+  in_channels: 4
+  out_channels: null
+
+training:
+  batch_size: 1
+  learning_rate: 0.0001
+  epochs: 10
+  num_workers: 2
+  random_seed: 42
+
+data_split:
+  train: 0.60
+  validation: 0.10
+  calibration: 0.15
+  test: 0.15
+  split_unit: patient
+
+conformal:
+  alpha: 0.10
+  score: patient_max_voxel_nonconformity
+  minimum_group_size: 10
+
+experiments:
+  evaluate_all_nonempty_modality_patterns: true
+  compare_ordinary_and_conditional_calibration: true

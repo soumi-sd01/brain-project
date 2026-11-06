@@ -1,0 +1,13 @@
+# PyTorch is already installed in Google Colab.
+# Do not reinstall torch from this file in the current Colab environment.
+
+monai
+nibabel
+numpy
+matplotlib
+scikit-learn
+PyYAML
+tqdm
+tensorboard
+streamlit
+pytest
