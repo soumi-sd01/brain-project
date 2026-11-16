@@ -257,3 +257,9 @@ wandb/
 *.tmp
 *.bak
 .DS_Store
+
+# Dataset archives
+*.tar
+*.tar.gz
+*.zip
+*.7z
