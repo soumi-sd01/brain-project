@@ -133,3 +133,55 @@ def test_constant_intensity_volume(sample_dataset):
 
     assert torch.isfinite(flair).all()
     assert torch.all(flair == 0)
+
+
+def test_dropped_modality_channel_is_zero(sample_dataset):
+    data_dir, split_file, _ = sample_dataset
+
+    dataset = BraTSDataset(
+        data_dir,
+        split_file,
+        missing_modalities=["flair"]
+    )
+
+    sample = dataset[0]
+
+    assert torch.all(sample["image"][0] == 0)
+
+
+def test_modality_mask_reflects_missing_modality(sample_dataset):
+    data_dir, split_file, _ = sample_dataset
+
+    dataset = BraTSDataset(
+        data_dir,
+        split_file,
+        missing_modalities=["flair", "t1ce"]
+    )
+
+    sample = dataset[0]
+
+    assert sample["modality_mask"].tolist() == [
+        False, True, False, True
+    ]
+
+
+def test_invalid_missing_modality_name_raises_error(sample_dataset):
+    data_dir, split_file, _ = sample_dataset
+
+    with pytest.raises(ValueError, match="Invalid modality names"):
+        BraTSDataset(
+            data_dir,
+            split_file,
+            missing_modalities=["invalid"]
+        )
+
+
+def test_dropping_all_modalities_raises_error(sample_dataset):
+    data_dir, split_file, _ = sample_dataset
+
+    with pytest.raises(ValueError, match="At least one modality"):
+        BraTSDataset(
+            data_dir,
+            split_file,
+            missing_modalities=["flair", "t1", "t1ce", "t2"]
+        )
