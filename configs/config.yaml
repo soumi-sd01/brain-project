@@ -3,7 +3,7 @@ project:
   random_seed: 42
 
 data:
-  root_dir: /content/drive/MyDrive/conformal-mri-missing-modalities/data/raw
+  root_dir: data/raw
   modalities:
     - flair
     - t1
